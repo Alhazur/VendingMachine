@@ -4,7 +4,38 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class VendingMachine
+    abstract class VendingMachine
     {
+        static int countId = 0;
+        public int Id { get; set; }
+        public double Price { get; set; }
+        public string Name { get; set; }
+        public string FullName { get { return Name + " Och " + Price + ":-"; } }
+        
+
+        public VendingMachine(int Id, string Name)
+        {
+            this.Id = Id;
+            this.Price = Price;
+            this.Name = Name;
+            
+        }
+        public VendingMachine(string Name, int Price)
+        {
+            Id = ++countId;
+            this.Price = Price;
+            this.Name = Name;
+        }
+        override public string ToString()//Det är visas in i (show list)
+        {
+            return Id + ": " + FullName;
+            
+
+        }
+        public static void Perches(VendingMachine vendingMachines)
+        {
+        }
+
+
     }
 }

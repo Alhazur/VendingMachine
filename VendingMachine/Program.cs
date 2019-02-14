@@ -8,6 +8,21 @@ namespace VendingMachine
     {
         static void Main(string[] args)
         {
+            // static void moneyList()
+            //{
+            //    for (int i = 1; i < moneyArray.length + 1; i++)
+            //    {
+            //        System.out.println("\n " + i + " - " + moneyArray[i - 1] + ": SEK");
+            //    }
+
+            //}
+
+            // static void setMoney()
+            //{
+            //    int[] coins = { 10, 30, 50, 100, 300, 500, 1000 };
+            //    moneyArray = coins;
+            //}
+
 
             List<Produkt> produkts = new List<Produkt>();
 
@@ -53,6 +68,7 @@ namespace VendingMachine
             bool go = true;
             while (go)
             {
+                
                 Console.Clear();
                 Console.WriteLine("Select product to browse");
                 Console.Write("1: Juice\n" +
@@ -125,10 +141,8 @@ namespace VendingMachine
                         break;
                 }
 
-
-                Console.WriteLine("Slut");
-
-                Console.WriteLine("---------------");
+                
+                
 
                 Console.WriteLine("---------------");
 
@@ -148,7 +162,7 @@ namespace VendingMachine
                 if (item.Id == selected)
                 {
 
-                    Person.Perches(item);
+                    Console.WriteLine(item);
                     notFound = false;
                     break;
                 }

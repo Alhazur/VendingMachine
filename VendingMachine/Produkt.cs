@@ -42,5 +42,6 @@ namespace VendingMachine
             return Id + ": " + FullName;
 
         }
+        
     }
 }
