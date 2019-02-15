@@ -4,22 +4,23 @@ using System.Text;
 
 namespace VendingMachine
 {
-    abstract class Person
+    class Person
     {
 
         public double Balance { get; set; }
-        public int Id { get; internal set; }
+        public string Name { get; set; }
+
         List<Produkt> cart = new List<Produkt>();
 
 
-        public override string ToString()
-        {
-            return Balance + " ";
-        }
+        //public override string ToString()
+        //{
+        //    return Balance + " ";
+        //}
 
-        public static void Perches(Produkt item)
+        public void Perches(Produkt item)
         {
-
+            cart.Add(item);
         }
     }
 }

@@ -6,26 +6,22 @@ namespace VendingMachine
 {
     class Program
     {
+        
+        
+
         static void Main(string[] args)
         {
-            // static void moneyList()
-            //{
-            //    for (int i = 1; i < moneyArray.length + 1; i++)
-            //    {
-            //        System.out.println("\n " + i + " - " + moneyArray[i - 1] + ": SEK");
-            //    }
-
-            //}
-
-            // static void setMoney()
-            //{
-            //    int[] coins = { 10, 30, 50, 100, 300, 500, 1000 };
-            //    moneyArray = coins;
-            //}
 
 
+            pro();
+
+
+
+        }
+        static void pro()
+        {
+            
             List<Produkt> produkts = new List<Produkt>();
-
 
             produkts.Add(new Juice("Mountain Dew", 10, 0.33));
             produkts.Add(new Juice("Coca Cola", 10, 2));
@@ -60,153 +56,11 @@ namespace VendingMachine
             produkts.Add(new Frukt("Banan", 10, "Nej"));
             produkts.Add(new Frukt("Kiwai", 10, "Ja"));
 
+            VendingMachine vending = new VendingMachine(produkts);
 
-
-
-
-
-            bool go = true;
-            while (go)
-            {
-                
-                Console.Clear();
-                Console.WriteLine("Select product to browse");
-                Console.Write("1: Juice\n" +
-                              "2: Snack\n" +
-                              "3: Frukt\n" +
-                              "4: Show list\n" +
-                              "\nSelect = ");
-
-                var userInput = Console.ReadKey();
-                Console.WriteLine();
-                var userSelectedProduct = new List<Produkt>();
-                switch (userInput.Key)
-                {
-
-                    case ConsoleKey.D1:
-                        //Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("You selected Juice");
-                        Console.ResetColor();
-                        userSelectedProduct = new List<Produkt>();
-                        foreach (var item in produkts)
-                        {
-                            if (item is Juice)
-                            {
-                                item.Info();
-                                userSelectedProduct.Add(item);
-                            }
-                        }
-                        AddList(userSelectedProduct);
-                        break;
-                    case ConsoleKey.D2:
-                        //Console.Clear();
-                        userSelectedProduct = new List<Produkt>();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("You selected Snack");
-                        Console.ResetColor();
-                        foreach (var item in produkts)
-                        {
-                            if (item is Snack)
-                            {
-                                item.Info();
-                                userSelectedProduct.Add(item);
-                            }
-                        }
-                        AddList(userSelectedProduct);
-                        break;
-                    case ConsoleKey.D3:
-                        //Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("You selected Frukt");
-                        Console.ResetColor();
-                        userSelectedProduct = new List<Produkt>();
-                        foreach (var item in produkts)
-                        {
-                            if (item is Frukt)
-                            {
-                                item.Info();
-                                userSelectedProduct.Add(item);
-                            }
-                        }
-                        AddList(userSelectedProduct);
-                        break;
-                    case ConsoleKey.D4:
-                        PrintList(produkts);
-                        break;
-                    case ConsoleKey.D0:
-                        go = false;
-                        break;
-                    default:
-                        break;
-                }
-
-                
-                
-
-                Console.WriteLine("---------------");
-
-                Console.ReadKey();
-            }
-
+            vending.StartMachine();
         }
-        static void AddList(List<Produkt> produkts)//ydalit
-        {
-            bool notFound = true;
-
-            Console.WriteLine("--- Add to Cart ---");
-
-            int selected = AskUserForNumberX("number of Product: ");//sdelat vibor!
-            foreach (Produkt item in produkts)
-            {
-                if (item.Id == selected)
-                {
-
-                    Console.WriteLine(item);
-                    notFound = false;
-                    break;
-                }
-            }
-
-        }
-        static void PrintList(List<Produkt> produkts)//vizozivaet List<Person>
-        {
-            Console.Clear();
-            foreach (Produkt item in produkts)//pokazivaet iz Lista
-            {
-                Console.WriteLine(item);
-            }
-
-        }
-
-        static string AskUserForX(string x)//prosit text imya ili nazvanie
-        {
-            string Input = "";
-            while (Input.Length == 0)
-            {
-                Console.Write("Please input " + x + ": ");
-                Input = Console.ReadLine();
-            }
-            return Input;// while zavershit svoe dejstvie return vernet k nachala dejstvi
-        }
-        static int AskUserForNumberX(string x)//prosit nomer ili vozrost pri sozdani chegoto
-        {
-            int number = 0;
-            bool noNumber = true;
-            while (noNumber)
-            {
-                try
-                {
-                    number = Convert.ToInt32(AskUserForX(x));
-                    noNumber = false;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Not a number, Please try once more.");
-                }
-            }
-            return number; // vozvroshaet k metody a v metode vaible togda nado pisat nazvanie variabla
-        }
+        
 
 
     }

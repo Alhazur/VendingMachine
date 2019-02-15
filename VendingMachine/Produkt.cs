@@ -10,7 +10,7 @@ namespace VendingMachine
         public int Id { get; set; }
         public double Price { get; set; }
         public string Name { get; set; }
-        public string FullName { get { return Name + " Och " + Price + ":-"; } }
+        //public string FullName { get { return Name + " Och " + Price + ":-"; } }
 
         public Produkt(int Id, string Name)
         {
@@ -29,19 +29,19 @@ namespace VendingMachine
 
         public virtual void Info()
         {
-            Console.Write("   Select: ");
+            Console.Write("          Select: ");
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(Id);
             Console.ResetColor();
 
-            Console.WriteLine(" Name: " + Name + " Price: " + Price + ":-");//pokazivaet imya obeih klassov potomychto odno imya na dvoih
+            Console.WriteLine(" Name: " + Name + " Price: " + Price + ": SEK");//pokazivaet imya obeih klassov potomychto odno imya na dvoih
         }
-        override public string ToString()//Det är visas in i (show list)
-        {
-            return Id + ": " + FullName;
+        //override public string ToString()//Det är visas in i (show list)
+        //{
+        //    return Id + ": " + FullName;
 
-        }
+        //}
         
     }
 }
