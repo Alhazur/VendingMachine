@@ -22,33 +22,27 @@ namespace VendingMachine
 
             Person person = new Person() { Name = "Eriksson" };
 
+
+
             bool go = true;
             while (go)
             {
-                moneyList();
 
-                int moneyIndex = AskUserForNumberX("value");
-
-                person.Balance = moneyArray[moneyIndex - 1];
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(" Your money is " + moneyArray[moneyIndex - 1] + ": SEK");
-                Console.ResetColor();
                 Console.WriteLine("Select product to browse");
                 Console.Write("1: Juice\n" +
                               "2: Snack\n" +
                               "3: Frukt\n" +
-                              "4: Show list\n" +
+                              "0: Exit\n" +
                               "\nSelect = ");
 
                 var userInput = Console.ReadKey();
                 Console.WriteLine();
                 List<Produkt> userSelectedProduct = new List<Produkt>();
+                Console.Clear();
+
                 switch (userInput.Key)
                 {
-
                     case ConsoleKey.D1:
-
-                        Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("You selected Juice");
                         Console.ResetColor();
@@ -97,8 +91,6 @@ namespace VendingMachine
                         break;
                     case ConsoleKey.D4:
 
-                        PrintList(produkts);
-
                         break;
                     case ConsoleKey.D0:
                         go = false;
@@ -106,20 +98,20 @@ namespace VendingMachine
                     default:
                         break;
                 }
+                Console.Write("Would you like to continue? y/n: ");
+                string yesNo = Console.ReadLine();
 
-                
-                userInput = Console.ReadKey();
-                Console.WriteLine("1");
-                
-                switch (userInput.Key)
+                if (yesNo.Equals("y"))//esli najat da to nachnet igru
                 {
-                    case ConsoleKey.D1:
-                        StartMachine();
-                            break;
+                    StartMachine();
+                }
+                else
+                {
+                    go = false;
                 }
 
-                    Console.WriteLine("---------------");
 
+                Console.WriteLine("---------------");
                 Console.ReadKey();
             }
         }
@@ -157,6 +149,7 @@ namespace VendingMachine
             foreach (Produkt item in produkts)//pokazivaet iz Lista
             {
                 Console.WriteLine(item);
+
             }
 
         }
@@ -192,21 +185,42 @@ namespace VendingMachine
 
         public void Perches(Person person, Produkt produkt)
         {
-            if (produkt.Price > person.Balance)
+            moneyList();
+
+            bool go = true;
+            while (go)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Can not buy, you need more money!");
-                Console.ResetColor();
+                int moneyIndex = AskUserForNumberX("value");
+                person.Balance = moneyArray[moneyIndex - 1];
+
+
+                if (produkt.Price > person.Balance)
+                {
+                    Console.Clear();
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{produkt.Name} for {produkt.Price}: SEK.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Can not buy for: " + person.Balance + ": Sek, you need more money!");
+                    Console.ResetColor();
+
+                    go = false;
+
+
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{person.Name} Bought: {produkt.Name} for {produkt.Price}: SEK. Item was send to the card");
+                    Console.ResetColor();
+                    person.Balance -= produkt.Price;
+                    person.Perches(produkt);
+                    Console.WriteLine("Your remaining money is: " + person.Balance + ": SEK");                    go = false;
+
+                }
             }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"{person.Name} Bought: {produkt.Name} for {produkt.Price}: SEK. Item was send to the card");
-                Console.ResetColor();
-                person.Balance -= produkt.Price;
-                person.Perches(produkt);
-                Console.WriteLine("Your remaining money is: " + person.Balance + ": SEK");
-            }
+
 
         }
 
