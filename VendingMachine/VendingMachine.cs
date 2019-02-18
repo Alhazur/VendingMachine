@@ -52,6 +52,7 @@ namespace VendingMachine
                             {
                                 item.Info();
                                 userSelectedProduct.Add(item);
+
                             }
                         }
                         AddList(person, userSelectedProduct);
@@ -97,43 +98,42 @@ namespace VendingMachine
                     default:
                         break;
                 }
+                
 
-                Console.Write("Do you want buy more? y/n: ");
-                string yesNo = Console.ReadLine();
-               
-                do
+                Console.Write("Do you want buy more?\nEnter 1 to continue\nEnter 2 to exit");
+                userInput = Console.ReadKey();
+
+                switch (userInput.Key)
                 {
-
-                    if (yesNo == "n")
-                    {
-                        
+                    case ConsoleKey.D1:
+                        Console.Clear();
+                        StartMachine();
+                        break;
+                    case ConsoleKey.D2:
 
                         Change change = new Change(person.Balance);
+                        
+
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Return your chenge: " + person.Balance + ": SEK");
+                        Console.WriteLine("Your chenge is: " + person.Balance + ": SEK");
                         Console.ResetColor();
 
-                        Console.WriteLine($"500: x {change.FemHundra}: SEK");
-                        Console.WriteLine($"200: x {change.TvåHundra}: SEK");
-                        Console.WriteLine($"100: x {change.EttHundra}: SEK");
-                        Console.WriteLine($"50: x {change.Femtio}: SEK");
-                        Console.WriteLine($"20: x {change.Tjogo}: SEK");
+                        Console.WriteLine($"500 Banknote: x {change.FemHundra}: SEK");
+                        Console.WriteLine($"200 Banknote: x {change.TvåHundra}: SEK");
+                        Console.WriteLine($"100 Banknote: x {change.EttHundra}: SEK");
+                        Console.WriteLine($"50 Banknote: x {change.Femtio}: SEK");
+                        Console.WriteLine($"20 Banknote: x {change.Tjogo}: SEK");
                         Console.WriteLine($"10 coins: x {change.Tio}: SEK");
                         Console.WriteLine($"5 coins: x {change.Fem}: SEK");
                         Console.WriteLine($"1 coins: x {change.Ett}: SEK");
+                        Console.WriteLine("\nThenks for your puchase!");
                         go = false;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        StartMachine();
-                    }
-                } while (go);
+                        break;
+                }
 
-
-                Console.WriteLine("\nThenks for your puchase!");
                 Console.ReadKey();
+                Environment.Exit(0);
             }
         }
 
@@ -233,9 +233,11 @@ namespace VendingMachine
                 else
                 {
                     Console.Clear();
+
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"{person.Name} Bought: {produkt.Name} for {produkt.Price}: SEK. Item was send to the card");
                     Console.ResetColor();
+
                     person.Balance -= produkt.Price;
                     person.Perches(produkt);
                     Console.WriteLine("Your remaining money is: " + person.Balance + ": SEK");
