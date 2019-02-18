@@ -11,13 +11,7 @@ namespace VendingMachine
         public string Name { get; set; }
 
         List<Produkt> cart = new List<Produkt>();
-
-
-        //public override string ToString()
-        //{
-        //    return Balance + " ";
-        //}
-
+        
         public void Perches(Produkt item)
         {
             cart.Add(item);

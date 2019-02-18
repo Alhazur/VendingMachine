@@ -23,7 +23,6 @@ namespace VendingMachine
             Person person = new Person() { Name = "Eriksson" };
 
 
-
             bool go = true;
             while (go)
             {
@@ -36,7 +35,7 @@ namespace VendingMachine
                               "\nSelect = ");
 
                 var userInput = Console.ReadKey();
-                Console.WriteLine();
+
                 List<Produkt> userSelectedProduct = new List<Produkt>();
                 Console.Clear();
 
@@ -98,20 +97,42 @@ namespace VendingMachine
                     default:
                         break;
                 }
-                Console.Write("Would you like to continue? y/n: ");
+
+                Console.Write("Do you want buy more? y/n: ");
                 string yesNo = Console.ReadLine();
-
-                if (yesNo.Equals("y"))//esli najat da to nachnet igru
+               
+                do
                 {
-                    StartMachine();
-                }
-                else
-                {
-                    go = false;
-                }
+
+                    if (yesNo == "n")
+                    {
+                        
+
+                        Change change = new Change(person.Balance);
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Return your chenge: " + person.Balance + ": SEK");
+                        Console.ResetColor();
+
+                        Console.WriteLine($"500: x {change.FemHundra}: SEK");
+                        Console.WriteLine($"200: x {change.TvåHundra}: SEK");
+                        Console.WriteLine($"100: x {change.EttHundra}: SEK");
+                        Console.WriteLine($"50: x {change.Femtio}: SEK");
+                        Console.WriteLine($"20: x {change.Tjogo}: SEK");
+                        Console.WriteLine($"10 coins: x {change.Tio}: SEK");
+                        Console.WriteLine($"5 coins: x {change.Fem}: SEK");
+                        Console.WriteLine($"1 coins: x {change.Ett}: SEK");
+                        go = false;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        StartMachine();
+                    }
+                } while (go);
 
 
-                Console.WriteLine("---------------");
+                Console.WriteLine("\nThenks for your puchase!");
                 Console.ReadKey();
             }
         }
@@ -185,6 +206,7 @@ namespace VendingMachine
 
         public void Perches(Person person, Produkt produkt)
         {
+
             moneyList();
 
             bool go = true;
@@ -216,11 +238,12 @@ namespace VendingMachine
                     Console.ResetColor();
                     person.Balance -= produkt.Price;
                     person.Perches(produkt);
-                    Console.WriteLine("Your remaining money is: " + person.Balance + ": SEK");                    go = false;
+                    Console.WriteLine("Your remaining money is: " + person.Balance + ": SEK");
+                    go = false;
 
                 }
-            }
 
+            }
 
         }
 

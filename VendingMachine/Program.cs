@@ -6,18 +6,9 @@ namespace VendingMachine
 {
     class Program
     {
-        
-        
-
         static void Main(string[] args)
         {
-
-            
-            
             pro();
-
-
-
         }
         static void pro()
         {
@@ -62,7 +53,5 @@ namespace VendingMachine
             vending.StartMachine();
         }
         
-
-
     }
 }
